@@ -1,8 +1,6 @@
 package fizBaz;
 
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
@@ -10,6 +8,7 @@ import java.util.function.Consumer;
 public class FizBaz extends Thread {
     private Consumer<Integer> procesor;
     AtomicBoolean isProces = new AtomicBoolean(true);
+    private volatile boolean running = true;
     private int n;
 
     public FizBaz(Consumer<Integer> procesor) {
@@ -21,13 +20,17 @@ public class FizBaz extends Thread {
         isProces.set(false);
     }
 
-    public Boolean isProces() {
+    public boolean isProces() {
         return isProces.get();
+    }
+
+    public void shutdown() {
+        running = false;
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (running) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -41,3 +44,4 @@ public class FizBaz extends Thread {
         }
     }
 }
+

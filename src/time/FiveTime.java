@@ -3,8 +3,8 @@ package time;
 public class FiveTime implements Runnable {
     @Override
     public void run() {
-        while (true){
-            System.out.println("Минуло 5 секунд");
+        while (true) {
+            System.out.println("5 seconds have passed");
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
